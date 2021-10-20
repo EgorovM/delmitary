@@ -1,6 +1,9 @@
-class GenericSerializerClass:
-    def get_serializer_class(self):
-        if hasattr(self.action, "list"):
-            return getattr(self, self.action)
+from rest_framework.viewsets import ViewSetMixin
 
-        return self.serializer_class
+
+class GenericSerializerClass(ViewSetMixin):
+    def get_serializer_class(self):
+        serializer_class_name = f"{self.action}_serializer_class"
+        serializer_class = getattr(self, serializer_class_name, None)
+
+        return serializer_class if serializer_class else self.serializer_class
