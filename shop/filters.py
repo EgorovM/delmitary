@@ -9,6 +9,12 @@ class ShopFilter(filters.FilterSet):
         fields = "__all__"
 
 
+class GoodFilter(filters.FilterSet):
+    class Meta:
+        model = shop_models.Good
+        fields = ["shop"]
+
+
 class OrderFilter(filters.FilterSet):
     total_price = filters.FilterSet
 

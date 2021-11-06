@@ -26,7 +26,7 @@ class ShopViewSet(viewsets.ModelViewSet, GenericSerializerClass):
 class GoodViewSet(viewsets.ModelViewSet):
     queryset = Good.objects.all()
     serializer_class = shop_serializers.GoodSerializer
-
+    filter_class = shop_filters.GoodFilter
 
 
 class OrderViewSet(viewsets.ModelViewSet, GenericSerializerClass):
