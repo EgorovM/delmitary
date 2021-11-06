@@ -7,3 +7,4 @@ class GenericSerializerClass(ViewSetMixin):
         serializer_class = getattr(self, serializer_class_name, None)
 
         return serializer_class if serializer_class else self.serializer_class
+

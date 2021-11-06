@@ -1,5 +1,7 @@
 from django.db import models
 
+from helpers.django import DateTimeMixin
+
 
 class City(models.Model):
     """ Город """
@@ -29,7 +31,7 @@ class Shop(models.Model):
     bike_time = models.TimeField()
 
 
-class Good(models.Model):
+class Good(models.Model, DateTimeMixin):
     """
     Товар в магазине
     * shop - магазин в котором товар продается

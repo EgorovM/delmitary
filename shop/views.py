@@ -28,6 +28,7 @@ class GoodViewSet(viewsets.ModelViewSet):
     serializer_class = shop_serializers.GoodSerializer
 
 
+
 class OrderViewSet(viewsets.ModelViewSet, GenericSerializerClass):
     queryset = Order.objects.all()
     serializer_class = shop_serializers.OrderSerializer
