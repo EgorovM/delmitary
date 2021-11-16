@@ -35,16 +35,21 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
-    "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
-    "django_filters",
-    "drf_yasg",
-    "corsheaders",
+    "django.contrib.messages",
 
-    "shop",
+    "rest_framework",
+    "rest_framework.authtoken",
+
+    "corsheaders",
+    "django_filters",
+    "django_mkdocs",
+    "djoser",
+    "drf_yasg",
+
     "couriers",
     "customers",
+    "shop",
 ]
 
 MIDDLEWARE = [
@@ -112,9 +117,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
+REST_FRAMEWORK = { 
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",
     ),
@@ -150,3 +156,10 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# MkDocs
+DOCUMENTATION_ROOT = BASE_DIR / '/project_docs'
+DOCUMENTATION_HTML_ROOT = DOCUMENTATION_ROOT / '/site'
+DOCUMENTATION_ACCESS_FUNCTION = lambda user: True
+DOCUMENTATION_XSENDFILE = False

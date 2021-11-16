@@ -19,34 +19,33 @@ class DormitorySerializer(serializers.ModelSerializer):
 
 
 class CompactShopSerializer(serializers.ModelSerializer):
+    walk_time = serializers.SerializerMethodField()
+    bike_time = serializers.SerializerMethodField()
     mean_price = serializers.SerializerMethodField()
 
     class Meta:
         model = shop_models.Shop
-        fields = ("id", "name", "address", "nearest_dormitory", "mean_price")
+        fields = ("id", "name", "icon", "address", "nearest_dormitory", "mean_price", "walk_time", "bike_time")
 
     def get_mean_price(self, obj):
         actual_prices = [good.price for good in obj.goods.all() if good.price != -1]
+        if not actual_prices:
+            return "Нет товаров"
 
         return sum(actual_prices) // len(actual_prices)
 
-
-class ShopSerializer(CompactShopSerializer):
-    walk_time = serializers.SerializerMethodField()
-    bike_time = serializers.SerializerMethodField()
-
-    class Meta:
-        model = shop_models.Shop
-        fields = CompactShopSerializer.Meta.fields + (
-            "walk_time",
-            "bike_time",
-        )
-
     def get_walk_time(self, obj):
         return obj.walk_time.minute
-    
+
     def get_bike_time(self, obj):
         return obj.bike_time.minute
+
+
+class ShopSerializer(CompactShopSerializer):
+    class Meta:
+        model = shop_models.Shop
+        fields = CompactShopSerializer.Meta.fields
+
 
 class GoodSerializer(serializers.ModelSerializer):
     class Meta:
