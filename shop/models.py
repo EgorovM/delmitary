@@ -27,6 +27,7 @@ class Shop(models.Model):
     name = models.CharField(max_length=120)
     address = models.CharField(max_length=120)
     nearest_dormitory = models.ForeignKey("Dormitory", on_delete=models.CASCADE)
+    icon = models.ImageField(upload_to="shops/", default="shops/default.png")
     walk_time = models.TimeField()
     bike_time = models.TimeField()
 
