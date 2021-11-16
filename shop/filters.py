@@ -6,7 +6,7 @@ from shop import models as shop_models
 class ShopFilter(filters.FilterSet):
     class Meta:
         model = shop_models.Shop
-        fields = "__all__"
+        fields = ["name", "address", "nearest_dormitory"]
 
 
 class GoodFilter(filters.FilterSet):
