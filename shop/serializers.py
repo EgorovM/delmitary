@@ -53,6 +53,13 @@ class GoodSerializer(serializers.ModelSerializer):
         fields = ("id", "shop", "name", "description", "icon", "price")
 
 
+
+class OrderGoodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = shop_models.OrderGood
+        fields = ("id", "good", "amount")
+
+
 class UpdateOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = shop_models.Order
@@ -60,6 +67,8 @@ class UpdateOrderSerializer(serializers.ModelSerializer):
 
 
 class CreateOrderSerializer(serializers.ModelSerializer):
+    goods = OrderGoodSerializer()
+
     class Meta:
         model = shop_models.Order
         fields = ("shop", "customer", "goods")

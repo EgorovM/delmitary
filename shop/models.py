@@ -49,7 +49,6 @@ class Order(models.Model):
     """
     Сформированный заказ
     """
-
     shop = models.ForeignKey("Shop", on_delete=models.CASCADE)
     goods = models.ManyToManyField("OrderGood")
 
