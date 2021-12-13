@@ -51,7 +51,7 @@ class Order(models.Model):
     """
 
     shop = models.ForeignKey("Shop", on_delete=models.CASCADE)
-    goods = models.ManyToManyField("Good")
+    goods = models.ManyToManyField("OrderGood")
 
     customer = models.ForeignKey("customers.Customer", on_delete=models.CASCADE)
     courier = models.ForeignKey("couriers.Courier", on_delete=models.CASCADE, null=True)
@@ -61,3 +61,8 @@ class Order(models.Model):
 
     # технические поля
     total_price = models.FloatField(default=0)
+
+
+class OrderGood(models.Model):
+    good = models.ForeignKey("Good", on_delete=models.CASCADE)
+    amount = models.IntegerField(default=1)
