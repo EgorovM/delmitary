@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 
 from shop import models as shop_models
 
@@ -66,12 +67,23 @@ class UpdateOrderSerializer(serializers.ModelSerializer):
         fields = ("courier", "has_completed", "completed_time")
 
 
-class CreateOrderSerializer(serializers.ModelSerializer):
-    goods = OrderGoodSerializer()
+class CreateOrderSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
+    goods = OrderGoodSerializer(many=True)
 
     class Meta:
         model = shop_models.Order
-        fields = ("shop", "customer", "goods")
+        fields = ("shop", "customer", "goods", "delivery_price")
+
+    def create(self, validated_data):
+        goods = [
+            shop_models.OrderGood.objects.create(
+                **order_good_params
+            ) 
+            for order_good_params in validated_data.pop('goods')
+        ]
+        order = shop_models.Order.objects.create(**validated_data)
+        order.goods.set(goods)
+        return order
 
 
 class OrderSerializer(CreateOrderSerializer):

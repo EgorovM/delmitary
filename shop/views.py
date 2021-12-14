@@ -30,13 +30,14 @@ class GoodViewSet(viewsets.ModelViewSet):
 
 
 class OrderViewSet(viewsets.ModelViewSet, GenericSerializerClass):
-    queryset = Order.objects.all()
+    queryset = Order.objects.all().order_by('-id')
     serializer_class = shop_serializers.OrderSerializer
     create_serializer_class = shop_serializers.CreateOrderSerializer
     filter_class = shop_filters.OrderFilter
 
     def perform_create(self, serializer):
-        goods = serializer.validated_data["goods"]
+        order_goods = serializer.validated_data["goods"]
+        goods = [good['good'] for good in order_goods]
         total_price = sum([good.price for good in goods])
         serializer.save(total_price=total_price)
         super().perform_create(serializer)

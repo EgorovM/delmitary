@@ -60,6 +60,7 @@ class Order(models.Model):
 
     # технические поля
     total_price = models.FloatField(default=0)
+    delivery_price = models.IntegerField(default=0)
 
 
 class OrderGood(models.Model):
