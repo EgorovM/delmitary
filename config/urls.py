@@ -25,14 +25,12 @@ urlpatterns = [
     path("admin/", admin.site. urls),
     path("auth/", include("djoser.urls")),
     re_path("auth/", include("djoser.urls.authtoken")),
-
     path(
         "api/swagger/",
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
     path("api/", include(router.urls)),
-    path('docs/', include('django_mkdocs.urls', namespace='documentation')),
 ]
 
 

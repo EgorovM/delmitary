@@ -56,6 +56,8 @@ class GoodSerializer(serializers.ModelSerializer):
 
 
 class OrderGoodSerializer(serializers.ModelSerializer):
+    good = GoodSerializer()
+
     class Meta:
         model = shop_models.OrderGood
         fields = ("id", "good", "amount")
@@ -93,5 +95,6 @@ class OrderSerializer(CreateOrderSerializer):
             "id",
             "total_price",
             "has_completed",
+            "ordered_time",
             "completed_time",
         )

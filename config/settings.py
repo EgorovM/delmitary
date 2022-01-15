@@ -43,7 +43,6 @@ INSTALLED_APPS = [
 
     "corsheaders",
     "django_filters",
-    "django_mkdocs",
     "djoser",
     "drf_yasg",
 

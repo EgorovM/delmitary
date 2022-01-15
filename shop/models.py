@@ -56,6 +56,7 @@ class Order(models.Model):
     courier = models.ForeignKey("couriers.Courier", on_delete=models.CASCADE, null=True)
 
     has_completed = models.BooleanField(default=False)
+    ordered_time = models.DateTimeField()
     completed_time = models.DateTimeField(blank=True, null=True)
 
     # технические поля
